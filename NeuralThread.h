@@ -1,41 +1,58 @@
 #include <iostream>
-struct NrlCel
-{
-	NeuralThread *nrlTh_belong_to;
-	NrlAxon nrlaxon;
-	NrlDendrite nrldendrite;
-};
+#include <stdio.h>
+#include <pthread.h>
+class NeuralThread;
+struct NrlCel;
+struct  NrlAxonNode;
+struct  NrlAxon;
+struct NrlDendrite;
+struct NrlRoute;
+
 //InPut
-struct NrlAxon
-{
-	NrlCel *belong_to;
-	NrlBranch[100];
-};
-struct NrlAxonNode
-{
-	NrlBranch[100];
-	NrlAxon *belong_to;
-};
 struct NrlBranch
 {
 	NrlAxonNode *belong_to;
 	NeuralThread *nrlTh;
 };
-//OutPut 100-10000 Synapses per Cell
-struct NrlDendrite
+
+struct NrlAxonNode
+{
+	NrlAxon *belong_to;
+	NrlBranch branch[100];
+};
+
+struct NrlAxon
 {
 	NrlCel *belong_to;
+	NrlAxonNode node[100];
 };
-struct NrlRoute
-{
-	NrlDendrite *belong_to;
-	NrlSynapse[10000];
-};
+
+
+//OutPut 100-10000 Synapses per Cell
 struct NrlSynapse
 {
 	int self_strength;
 	NeuralThread * nrlTh;
-	NrlRoute *belong_to;
+	NrlDendrite *belong_to;
+};
+struct NrlRoute
+{
+	int self_strength;
+	NrlDendrite *belong_to;
+};
+struct NrlDendrite
+{
+	NrlRoute route;
+	NrlSynapse snp[10000];
+	struct  NrlCel *belong_to;
+};
+
+
+struct NrlCel
+{
+	NeuralThread *nrlTh_belong_to;
+	struct NrlAxon nrlaxon;
+	struct NrlDendrite nrldendrite;
 };
 
 class NeuralThread
@@ -43,6 +60,9 @@ class NeuralThread
 public:
 	NeuralThread();
 	~NeuralThread();
-private:
+	static  void * procRoutine(void *arg);
+public:
 	NrlCel cell;
+	pthread_t  cmd_thread;
+	pthread_t data_thread;
 };

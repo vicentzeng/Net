@@ -1,36 +1,16 @@
-#include <iostream>
-struct NrlCel
-{
-};
-//InPut
-struct NrlAxon
-{	
-};
-struct NrlNode
-{
-};
-struct NrlBranch
-{
-};
-//OutPut 100-10000 Synapses per Cell
-struct NrlDendrite
-{
-};
-struct NrlRoute
-{
-};
-struct NrlSynapse
-{
-};
-class NeuralThread
-{
-public:
+#include "NeuralThread.h"
+	NeuralThread::NeuralThread(){
+		void  *arg;
+		int ret;
+		ret = pthread_create( &cmd_thread, NULL, procRoutine, arg );
+	}
+	NeuralThread::~NeuralThread(){
+	}
 
-	NeuralThread();
-	~NeuralThread();
-private:
-	NrlInput input;
-	NrlOutput output;
-	NrlCel cell;
-	NrlRoute route;
-};
+	void *NeuralThread::procRoutine( void  *arg){
+		while(0){
+			return 0;
+		}
+		printf("cmd_thread exit\n");
+		return 0;
+	}
