@@ -23,15 +23,28 @@
 
 
 #include <iostream>
- #include "NeuralThread.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "NeuralThread.h"
 using namespace std;
+#define NUM (30*1000)
 int main(int argc, char **argv)
 {
 	cout<<"hello world!"<<endl;
-	NeuralThread th;
+	int64_t memsize = 0;
+	//alloc
+	NrlCel *cells = new NrlCel[NUM];
+	memsize = sizeof(NrlCel) * NUM;
+	cout << "size:" << sizeof(NrlCel) << "  "<<memsize/1024/1024<< "M" << endl;
+	//alloc th
+	NeuralThread th[NUM];
+	memsize = sizeof(NeuralThread) * NUM;
+	cout << "size:" << sizeof(NeuralThread) << "  "<<memsize/1024/1024<< "M" << endl;
+
 	for(int i = 0; i< 10; i++){
-		cout<<i<<" "<<th.cell.nrldendrite.snp[i].self_strength<<endl;
+		//cout<<i<<" "<<th.cell.nrldendrite.snp[i].self_strength<<endl;
 	}
+	usleep(30*1000*1000);
 	return 0;
 }
 

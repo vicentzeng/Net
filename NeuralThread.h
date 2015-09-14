@@ -1,10 +1,12 @@
 #include <iostream>
 #include <stdio.h>
 #include <pthread.h>
+#include  <unistd.h>
+
 class NeuralThread;
 struct NrlCel;
-struct  NrlAxonNode;
-struct  NrlAxon;
+struct NrlAxonNode;
+struct NrlAxon;
 struct NrlDendrite;
 struct NrlRoute;
 
@@ -53,6 +55,7 @@ struct NrlCel
 	NeuralThread *nrlTh_belong_to;
 	struct NrlAxon nrlaxon;
 	struct NrlDendrite nrldendrite;
+	char type;
 };
 
 class NeuralThread
@@ -62,7 +65,10 @@ public:
 	~NeuralThread();
 	static  void * procRoutine(void *arg);
 public:
-	NrlCel cell;
+	//NrlCel cell;
+private:
+	pthread_mutex_t th_mtx;
+	pthread_cond_t th_cond;
 	pthread_t  cmd_thread;
 	pthread_t data_thread;
 };

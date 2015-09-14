@@ -2,9 +2,8 @@
 	NeuralThread::NeuralThread(){
 		void  *arg;
 		int ret;
+		printf("New NeuralThread\n");
 		ret = pthread_create( &cmd_thread, NULL, procRoutine, arg );
-		if(ret)
-		printf("thread create id:%d", ret);
 	}
 	NeuralThread::~NeuralThread(){
 	}
@@ -13,7 +12,7 @@
 		while(0){
 			return 0;
 		}
-		printf("cmd_thread exit\n");
-		usleep(1000);
+		usleep(100*1000);
+		printf("NeuralThread exit\n");
 		return 0;
 	}
