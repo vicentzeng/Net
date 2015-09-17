@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall
 LDFLAGS=
-SOURCES=main.cpp NeuralThread.cpp
+SOURCES=main.cpp NeuralThread.cpp MemManager.cpp Reflex.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 LIBDIRS=-lpthread
 EXECUTABLE=Net

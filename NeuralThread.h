@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <pthread.h>
-#include  <unistd.h>
+#include <unistd.h>
 
 class NeuralThread;
 struct NrlCel;
@@ -9,7 +9,12 @@ struct NrlAxonNode;
 struct NrlAxon;
 struct NrlDendrite;
 struct NrlRoute;
-
+static int ref_num = 0;
+enum NODETYPE{
+	IN,
+	OUT,
+	DOUBLE,
+	};
 //InPut
 struct NrlBranch
 {
@@ -33,13 +38,13 @@ struct NrlAxon
 //OutPut 100-10000 Synapses per Cell
 struct NrlSynapse
 {
-	int self_strength;
+	char self_strength;
 	NeuralThread * nrlTh;
 	NrlDendrite *belong_to;
 };
 struct NrlRoute
 {
-	int self_strength;
+	char self_strength;
 	NrlDendrite *belong_to;
 };
 struct NrlDendrite
@@ -63,9 +68,10 @@ class NeuralThread
 public:
 	NeuralThread();
 	~NeuralThread();
+	void initNode( int type = DOUBLE);
 	static  void * procRoutine(void *arg);
 public:
-	//NrlCel cell;
+	NrlCel mNode;
 private:
 	pthread_mutex_t th_mtx;
 	pthread_cond_t th_cond;
