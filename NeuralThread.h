@@ -60,7 +60,8 @@ struct NrlCel
 	NeuralThread *nrlTh_belong_to;
 	struct NrlAxon nrlaxon;
 	struct NrlDendrite nrldendrite;
-	char type;
+	unsigned char type;
+	unsigned char action_strength;
 };
 
 class NeuralThread

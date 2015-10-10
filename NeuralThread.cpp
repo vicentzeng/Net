@@ -1,5 +1,6 @@
 #include "NeuralThread.h"
 	NeuralThread::NeuralThread(){
+		mNode.action_strength = 0;
 		void  *arg;
 		int ret;
 		ret = pthread_create( &cmd_thread, NULL, procRoutine, arg );
