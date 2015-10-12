@@ -25,7 +25,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include "NeuralThread.h"
+#include "CameraThread.h"
 #include "MemManager.h"
 
 using namespace std;
@@ -43,9 +43,9 @@ int main(int argc, char **argv)
 	//memsize = sizeof(NrlCel) * NUM;
 	//cout << "size:" << sizeof(NrlCel) << "  "<<memsize/1024/1024<< "M" << endl;
 	//alloc th
-	NeuralThread *th = new NeuralThread[NUM];
-	memsize = sizeof(NeuralThread) * NUM;
-	cout << "size:" << sizeof(NeuralThread) << "  "<<memsize/1024/1024<< "M" << endl;
+	CameraThread *th = new CameraThread[NUM];
+	memsize = sizeof(CameraThread) * NUM;
+	cout << "size:" << sizeof(CameraThread) << "  "<<memsize/1024/1024<< "M" << endl;
 	cout << "thread num:" << NUM << endl;
 
 	usleep(30*1000*1000);

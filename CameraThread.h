@@ -2,8 +2,9 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <queue>
 
-class NeuralThread;
+class CameraThread;
 struct NrlCel;
 struct NrlAxonNode;
 struct NrlAxon;
@@ -19,7 +20,7 @@ enum NODETYPE{
 struct NrlBranch
 {
 	NrlAxonNode *belong_to;
-	NeuralThread *nrlTh;
+	CameraThread *nrlTh;
 };
 
 struct NrlAxonNode
@@ -39,7 +40,7 @@ struct NrlAxon
 struct NrlSynapse
 {
 	char self_strength;
-	NeuralThread * nrlTh;
+	CameraThread * nrlTh;
 	NrlDendrite *belong_to;
 };
 struct NrlRoute
@@ -57,20 +58,21 @@ struct NrlDendrite
 
 struct NrlCel
 {
-	NeuralThread *nrlTh_belong_to;
+	CameraThread *nrlTh_belong_to;
 	struct NrlAxon nrlaxon;
 	struct NrlDendrite nrldendrite;
 	unsigned char type;
 	unsigned char action_strength;
 };
 
-class NeuralThread
+class CameraThread
 {
 public:
-	NeuralThread();
-	~NeuralThread();
+	CameraThread();
+	~CameraThread();
 	void initNode( int type = DOUBLE);
 	static  void * procRoutine(void *arg);
+	static  void * procEvolRoutine(void *arg);
 public:
 	NrlCel mNode;
 private:
@@ -78,4 +80,5 @@ private:
 	pthread_cond_t th_cond;
 	pthread_t  cmd_thread;
 	pthread_t data_thread;
+	pthread_t  selfEvol_thread;
 };
