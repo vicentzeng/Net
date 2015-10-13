@@ -3,6 +3,8 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <queue>
+#include <time.h>
+using namespace std;
 
 class CameraThread;
 struct NrlCel;
@@ -65,16 +67,25 @@ struct NrlCel
 	unsigned char action_strength;
 };
 
+struct TaskNode{
+	int time;
+	int action;
+};
+
 class CameraThread
 {
 public:
 	CameraThread();
 	~CameraThread();
 	void initNode( int type = DOUBLE);
+	void handleInfo();
 	static  void * procRoutine(void *arg);
 	static  void * procEvolRoutine(void *arg);
 public:
 	NrlCel mNode;
+	time_t start_time;
+	queue <TaskNode> taskqueue;
+	queue <int> infoqueue;
 private:
 	pthread_mutex_t th_mtx;
 	pthread_cond_t th_cond;
