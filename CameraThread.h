@@ -34,7 +34,7 @@ struct NrlAxonNode
 struct NrlAxon
 {
 	NrlCel *belong_to;
-	NrlAxonNode node[100];
+	NrlAxonNode node[100];	//shu
 };
 
 
@@ -53,7 +53,7 @@ struct NrlRoute
 struct NrlDendrite
 {
 	NrlRoute route;
-	NrlSynapse snp[10000];
+	NrlSynapse snp[10000];	//zhou
 	struct  NrlCel *belong_to;
 };
 
@@ -72,20 +72,29 @@ struct TaskNode{
 	int action;
 };
 
+struct MyMsg{
+	NrlSynapse *from;
+	int type;
+	int str;
+	};
+
 class CameraThread
 {
 public:
 	CameraThread();
 	~CameraThread();
 	void initNode( int type = DOUBLE);
-	void handleInfo();
+	bool handleDoubleInfo(MyMsg* msg);
+	bool handleInInfo(MyMsg* msg);
+	bool handleOutInfo(MyMsg* msg);
+	bool sendInfo(int str);
 	static  void * procRoutine(void *arg);
 	static  void * procEvolRoutine(void *arg);
 public:
 	NrlCel mNode;
 	time_t start_time;
 	queue <TaskNode> taskqueue;
-	queue <int> infoqueue;
+	queue <MyMsg> infoqueue;
 private:
 	pthread_mutex_t th_mtx;
 	pthread_cond_t th_cond;

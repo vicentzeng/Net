@@ -20,12 +20,14 @@
 		CameraThread *pme = (CameraThread *)arg;
 		while(is_run){
 			while(!pme->infoqueue.empty()){
-				int cmd = pme->infoqueue.front();
+				MyMsg msg = pme->infoqueue.front();
 				pme->infoqueue.pop();
-				switch (cmd){
-					case 0: {printf("cmd proc:pass msg to all conn\n");} break;
-					default:break;
-				}
+				switch(pme->mNode.type){
+					case DOUBLE: pme->handleDoubleInfo(&msg); break;
+					case IN: pme->handleInInfo(&msg); break;
+					case OUT: pme->handleOutInfo(&msg); break;
+					default: printf("erro Node Type!"); break;
+					}
 			}
 			return 0;
 		}
@@ -60,6 +62,42 @@
 		mNode.nrlTh_belong_to = this;
 	}
 
-	void CameraThread::handleInfo(){
-		
+	bool CameraThread::handleDoubleInfo(MyMsg *msg){
+		switch (msg->type){
+			case 0: {printf("cmd proc:pass msg to all conn\n");} break;
+			default:break;
+			}
+		if (msg->str > mNode.action_strength)
+			return true;
+		else
+			return false;
+		}
+	bool CameraThread::handleInInfo(MyMsg *msg){
+		switch (msg->type){
+					case 0: {printf("cmd proc: create and pass msg to all conn\n");} break;
+					default:break;
+				}
+		if (msg->str > mNode.action_strength)
+			return true;
+		else
+			return false;
+		}
+
+	bool CameraThread::handleOutInfo(MyMsg *msg){
+		switch (msg->type){
+					case 0: {printf("cmd proc:action\n");} break;
+					default:break;
+				}
+		if (msg->str > mNode.action_strength)
+			return true;
+		else
+			return false;
+		}
+	bool CameraThread::sendInfo(int str){
+		MyMsg *msg = new MyMsg();
+		msg->type = 0;
+		msg->from = NULL;
+		msg->str = str;
+		infoqueue.push(*msg);
+		return true;
 		}
