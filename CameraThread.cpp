@@ -64,7 +64,8 @@
 
 	bool CameraThread::handleDoubleInfo(MyMsg *msg){
 		switch (msg->type){
-			case 0: {printf("cmd proc:pass msg to all conn\n");} break;
+			case 0: {printf("cmd proc:pass msg to all conn\n");
+			dispatchInfo(msg->str);} break;
 			default:break;
 			}
 		if (msg->str > mNode.action_strength)
@@ -74,7 +75,8 @@
 		}
 	bool CameraThread::handleInInfo(MyMsg *msg){
 		switch (msg->type){
-					case 0: {printf("cmd proc: create and pass msg to all conn\n");} break;
+					case 0: {printf("cmd proc: create and pass msg to all conn\n");
+					dispatchInfo(msg->str);} break;
 					default:break;
 				}
 		if (msg->str > mNode.action_strength)
@@ -85,7 +87,9 @@
 
 	bool CameraThread::handleOutInfo(MyMsg *msg){
 		switch (msg->type){
-					case 0: {printf("cmd proc:action\n");} break;
+					case 0: {
+						printf("cmd proc:action\n");
+						} break;
 					default:break;
 				}
 		if (msg->str > mNode.action_strength)
@@ -93,11 +97,18 @@
 		else
 			return false;
 		}
-	bool CameraThread::sendInfo(int str){
+	bool CameraThread::dispatchInfo(int info){
+	    for (list<CameraThread*>::iterator it = connqueue.begin(); it != connqueue.end(); ++it)
+	    {
+			sendInfoTo((CameraThread*)*it, 10);
+	    }
+		return true;
+		}
+	bool CameraThread::sendInfoTo(CameraThread *trg, int str){
 		MyMsg *msg = new MyMsg();
 		msg->type = 0;
 		msg->from = NULL;
 		msg->str = str;
-		infoqueue.push(*msg);
+		trg->infoqueue.push(*msg);
 		return true;
 		}

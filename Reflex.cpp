@@ -5,3 +5,12 @@ Reflex::Reflex(){
 	independent_at.initNode(OUT);//action independent
 	ps.initNode(DOUBLE);//pass
 }
+void Reflex::build_conn(){
+	fl.connqueue.push_back(&ps);
+	at.connqueue.push_back(&ps);
+	independent_at.connqueue.push_back(&ps);
+	ps.connqueue.push_back(&fl);
+	ps.connqueue.push_back(&at);
+	ps.connqueue.push_back(&independent_at);
+}
+

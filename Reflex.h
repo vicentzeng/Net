@@ -5,6 +5,7 @@
 class Reflex{
 public:
 	Reflex();
+	void build_conn();
 private:
 	CameraThread fl; //feel
 	CameraThread at;//action

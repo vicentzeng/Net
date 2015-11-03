@@ -3,6 +3,7 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <queue>
+#include <list>
 #include <time.h>
 using namespace std;
 
@@ -87,7 +88,8 @@ public:
 	bool handleDoubleInfo(MyMsg* msg);
 	bool handleInInfo(MyMsg* msg);
 	bool handleOutInfo(MyMsg* msg);
-	bool sendInfo(int str);
+	bool CameraThread::dispatchInfo(int info);
+	bool sendInfoTo(CameraThread *trg, int str);
 	static  void * procRoutine(void *arg);
 	static  void * procEvolRoutine(void *arg);
 public:
@@ -95,6 +97,7 @@ public:
 	time_t start_time;
 	queue <TaskNode> taskqueue;
 	queue <MyMsg> infoqueue;
+	list <CameraThread*> connqueue;
 private:
 	pthread_mutex_t th_mtx;
 	pthread_cond_t th_cond;

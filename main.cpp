@@ -25,8 +25,9 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include "CameraThread.h"
+//#include "CameraThread.h"
 #include "MemManager.h"
+#include "Reflex.h"
 
 using namespace std;
 int main(int argc, char **argv)
@@ -36,7 +37,7 @@ int main(int argc, char **argv)
 	int64_t memsize = 0;
 	MemManager mgr;
 	memsize = mgr.getMachMemSize();
-	cout << "machmemsize:"<<memsize<<" B"<<endl;
+	cout << "Total memsize:"<<memsize/1024/1024<<"M"<<endl;
 	//alloc
 	int64_t NUM = memsize/3/sizeof(NrlCel);
 	//NrlCel *cells = new NrlCel[NUM];
@@ -45,10 +46,12 @@ int main(int argc, char **argv)
 	//alloc th
 	CameraThread *th = new CameraThread[NUM];
 	memsize = sizeof(CameraThread) * NUM;
-	cout << "size:" << sizeof(CameraThread) << "  "<<memsize/1024/1024<< "M" << endl;
+	cout << "\nUsed size:" << sizeof(CameraThread) << "  "<<memsize/1024/1024<< "M" << endl;
 	cout << "thread num:" << NUM << endl;
-
-	usleep(30*1000*1000);
+	usleep(10*1000*1000);
+	//Reflex
+	Reflex fl;
+	fl.build_conn();
 	return 0;
 }
 
