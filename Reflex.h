@@ -6,6 +6,8 @@ class Reflex{
 public:
 	Reflex();
 	void build_conn();
+	void run();
+	void tryRoutine();
 private:
 	CameraThread fl; //feel
 	CameraThread at;//action

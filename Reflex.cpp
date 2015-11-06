@@ -7,10 +7,16 @@ Reflex::Reflex(){
 }
 void Reflex::build_conn(){
 	fl.connqueue.push_back(&ps);
-	at.connqueue.push_back(&ps);
-	independent_at.connqueue.push_back(&ps);
-	ps.connqueue.push_back(&fl);
+	//at.connqueue.push_back(&ps);
+	//independent_at.connqueue.push_back(&ps);
+	//ps.connqueue.push_back(&fl);
 	ps.connqueue.push_back(&at);
 	ps.connqueue.push_back(&independent_at);
 }
 
+void Reflex::run(){
+	fl.tryActiveNode(101);
+	}
+void Reflex::tryRoutine(){
+	
+	}

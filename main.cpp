@@ -34,24 +34,26 @@ int main(int argc, char **argv)
 {
 	cout<<"hello world!"<<endl;
 	//mem detect
-	int64_t memsize = 0;
-	MemManager mgr;
-	memsize = mgr.getMachMemSize();
-	cout << "Total memsize:"<<memsize/1024/1024<<"M"<<endl;
+	//int64_t memsize = 0;
+	//MemManager mgr;
+	//memsize = mgr.getMachMemSize();
+	//cout << "Total memsize:"<<memsize/1024/1024<<"M"<<endl;
 	//alloc
-	int64_t NUM = memsize/3/sizeof(NrlCel);
+	//int64_t NUM = memsize/3/sizeof(NrlCel);
 	//NrlCel *cells = new NrlCel[NUM];
 	//memsize = sizeof(NrlCel) * NUM;
 	//cout << "size:" << sizeof(NrlCel) << "  "<<memsize/1024/1024<< "M" << endl;
 	//alloc th
-	CameraThread *th = new CameraThread[NUM];
-	memsize = sizeof(CameraThread) * NUM;
-	cout << "\nUsed size:" << sizeof(CameraThread) << "  "<<memsize/1024/1024<< "M" << endl;
-	cout << "thread num:" << NUM << endl;
-	usleep(10*1000*1000);
+	//CameraThread *th = new CameraThread[NUM];
+	//memsize = sizeof(CameraThread) * NUM;
+	//cout << "\nUsed size:" << sizeof(CameraThread) << "  "<<memsize/1024/1024<< "M" << endl;
+	//cout << "thread num:" << NUM << endl;
+	//usleep(10*1000*1000);
 	//Reflex
 	Reflex fl;
 	fl.build_conn();
+	fl.run();
+	usleep(10*1000*1000);
 	return 0;
 }
 

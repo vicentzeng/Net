@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall
 LDFLAGS=
-SOURCES=main.cpp CameraThread.cpp MemManager.cpp Reflex.cpp
+SOURCES=main.cpp CameraThread.cpp MemManager.cpp Reflex.cpp TrnThread.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 LIBDIRS=-lpthread
 EXECUTABLE=Net

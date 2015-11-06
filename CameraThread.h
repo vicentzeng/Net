@@ -42,13 +42,13 @@ struct NrlAxon
 //OutPut 100-10000 Synapses per Cell
 struct NrlSynapse
 {
-	char self_strength;
+	unsigned char self_strength;
 	CameraThread * nrlTh;
 	NrlDendrite *belong_to;
 };
 struct NrlRoute
 {
-	char self_strength;
+	unsigned char self_strength;
 	NrlDendrite *belong_to;
 };
 struct NrlDendrite
@@ -64,8 +64,9 @@ struct NrlCel
 	CameraThread *nrlTh_belong_to;
 	struct NrlAxon nrlaxon;
 	struct NrlDendrite nrldendrite;
-	unsigned char type;
+	NODETYPE type;
 	unsigned char action_strength;
+	int index;
 };
 
 struct TaskNode{
@@ -84,12 +85,13 @@ class CameraThread
 public:
 	CameraThread();
 	~CameraThread();
-	void initNode( int type = DOUBLE);
+	void initNode( NODETYPE type = DOUBLE);
 	bool handleDoubleInfo(MyMsg* msg);
 	bool handleInInfo(MyMsg* msg);
 	bool handleOutInfo(MyMsg* msg);
-	bool CameraThread::dispatchInfo(int info);
+	bool dispatchInfo(int info);
 	bool sendInfoTo(CameraThread *trg, int str);
+	bool tryActiveNode(int str);
 	static  void * procRoutine(void *arg);
 	static  void * procEvolRoutine(void *arg);
 public:
