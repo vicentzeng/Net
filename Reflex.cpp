@@ -1,5 +1,7 @@
 #include "Reflex.h"
 Reflex::Reflex(){
+	map = new int[25]{0};
+
 	fl.initNode(IN); //feel
 	at.initNode(OUT);//action
 	independent_at.initNode(OUT);//action independent

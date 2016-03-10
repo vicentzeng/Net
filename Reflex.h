@@ -9,6 +9,7 @@ public:
 	void run();
 	void tryRoutine();
 private:
+	int *map;
 	CameraThread fl; //feel
 	CameraThread at;//action
 	CameraThread independent_at;//action independent
