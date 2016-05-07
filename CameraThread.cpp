@@ -16,6 +16,8 @@
 	CameraThread::~CameraThread(){
 	}
 
+//process
+
 	void *CameraThread::procRoutine( void  *arg){
 		bool is_run = true;
 		TaskNode n1;
@@ -41,6 +43,7 @@
 		return 0;
 	}
 
+//process Event
 	void *CameraThread::procEvolRoutine( void  *arg){
 		bool is_run = true;
 		TaskNode n1;
